@@ -29,7 +29,7 @@ camera-test-app/
 
 ## 1. Configuração
 
-O arquivo `backend/.env.example` já vem preenchido com os dados de exemplo, configure de acordo com seu ambiente:
+O arquivo `backend/.env.example.env` já vem preenchido com os dados de exemplo, configure de acordo com seu ambiente:
 
 **Esse arquivo contém a senha da câmera em texto puro.** Não o suba para um
 repositório público (o `.gitignore` já exclui `.env` por padrão). Se for
