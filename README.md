@@ -12,7 +12,7 @@ camera-test-app/
 ├── backend/          FastAPI (Python)
 │   ├── main.py
 │   ├── requirements.txt
-│   ├── .env          já preenchido com os dados da câmera que você passou
+│   ├── .env          
 │   └── captures/      onde as imagens/vídeos capturados ficam salvos
 └── frontend/          React + Vite + Material UI
     └── src/
