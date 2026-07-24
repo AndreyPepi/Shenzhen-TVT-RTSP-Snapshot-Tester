@@ -1,0 +1,166 @@
+:root {
+  --bg-base: #0b0f12;
+  --bg-panel: #12181c;
+  --bg-elevated: #171f24;
+  --border-hairline: #263139;
+  --text-primary: #e4ecee;
+  --text-secondary: #7c8d95;
+
+  /* Azul-marinho da identidade visual do Grupo Pumatronix.
+     Troque pelo hex exato do manual de marca se tiver o valor oficial —
+     este foi aproximado visualmente a partir da logo. */
+  --accent: #0b3d63;
+  --accent-dim: #1c3a52;
+
+  --status-ok: #35d07f;
+  --status-err: #ff5c5c;
+  --status-warn: #ffb020;
+  --status-info: #4fa8e0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg-base);
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(11, 61, 99, 0.10), transparent 40%),
+    radial-gradient(circle at 85% 100%, rgba(79, 168, 224, 0.04), transparent 40%);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: #f2f6f9;
+}
+
+/* Scrollbar técnica, discreta */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-hairline) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-hairline);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes blink-rec {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(11, 61, 99, 0.45); }
+  100% { box-shadow: 0 0 0 8px rgba(11, 61, 99, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---- Viewfinder: moldura de câmera com cantos, usada em cada slot de mídia ----
+   Os cantos (spans .viewfinder__corner) só são renderizados pelo MediaSlot.jsx
+   quando o status não é "idle" — por isso o placeholder vazio não deve ter
+   nenhuma moldura parcial vindo do CSS puro; a classe base .viewfinder não
+   define border-color nenhuma por conta própria. */
+.viewfinder {
+  position: relative;
+  border-radius: 4px;
+}
+
+.viewfinder__corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--border-hairline);
+  transition: border-color 0.25s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.viewfinder__corner--tl {
+  top: 8px; left: 8px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+.viewfinder__corner--tr {
+  top: 8px; right: 8px;
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+.viewfinder__corner--bl {
+  bottom: 8px; left: 8px;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+}
+.viewfinder__corner--br {
+  bottom: 8px; right: 8px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+.viewfinder--active .viewfinder__corner {
+  border-color: var(--accent);
+}
+.viewfinder--ok .viewfinder__corner {
+  border-color: var(--status-ok);
+}
+.viewfinder--error .viewfinder__corner {
+  border-color: var(--status-err);
+}
+
+.viewfinder__rec {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: #cfe0ee;
+  background: rgba(11, 15, 18, 0.75);
+  padding: 3px 7px;
+  border-radius: 3px;
+  z-index: 3;
+}
+.viewfinder__rec-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink-rec 1s infinite;
+}
+
+.viewfinder__osd {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  color: #d7e2e5;
+  background: rgba(11, 15, 18, 0.6);
+  padding: 2px 6px;
+  border-radius: 3px;
+  z-index: 3;
+}
